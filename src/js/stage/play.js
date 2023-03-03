@@ -1,22 +1,17 @@
-import { Stage, game, ColorLayer, BitmapText  } from 'melonjs';
+import { game, level, Stage } from 'melonjs';
+import Fog from '../renderables/fog.js';
 
 class PlayScreen extends Stage {
-    /**
-     *  action to perform on state change
-     */
-    onResetEvent() {
-        // add a gray background to the default Stage
-        game.world.addChild(new ColorLayer("background", "#202020"));
+	/**
+	 *  action to perform on state change
+	 */
+	onResetEvent() {
+		game.world.gravity.setZero();
 
-        // add a font text display object
-        game.world.addChild(new BitmapText(game.viewport.width / 2, game.viewport.height / 2,  {
-            font : "PressStart2P",
-            size : 4.0,
-            textBaseline : "middle",
-            textAlign : "center",
-            text : "Hello World !"
-        }));
-    }
-};
+		level.load('map');
+
+		game.world.addChild(new Fog());
+	}
+}
 
 export default PlayScreen;
